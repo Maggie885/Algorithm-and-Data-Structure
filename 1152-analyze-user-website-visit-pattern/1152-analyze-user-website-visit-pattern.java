@@ -1,17 +1,16 @@
 class Pair{
     int time;
     String web;
-    
     public Pair(int time, String web){
         this.time = time;
         this.web = web;
-    } 
+    }
 }
-
+    
 class Solution{
-    public List<String> mostVisitedPattern(String[] username, int[] timestamp, String[] website){
+    public List<String> mostVisitedPattern(String[] username, int[] timestamp, String[] website) {
         Map<String, List<Pair>> map = new HashMap<>();
-        int n = username.length; 
+        int n = username.length;
         
         for(int i=0; i<n; i++){
             map.putIfAbsent(username[i], new ArrayList<>());
@@ -22,27 +21,26 @@ class Solution{
         String res = "";
         
         for(String key: map.keySet()){
-            
             Set<String> set = new HashSet<>();
             List<Pair> list = map.get(key);
-            Collections.sort(list,(a,b) -> (a.time - b.time));
+           Collections.sort(list, (a,b) -> (a.time - b.time));
             
             for(int i=0; i<list.size(); i++){
                 for(int j=i+1; j<list.size(); j++){
-                     for(int k=j+1; k<list.size(); k++){
-                         
-                      String str = list.get(i).web + " " + list.get(j).web + " " + list.get(k).web; 
-                         
-                        if(!set.contains(str)){
-                            count.put(str, count.getOrDefault(str,0)+1);
-                            set.add(str);
-                        }
+                    for(int k=j+1; k<list.size(); k++){
                         
-          if(res.equals("") || count.get(str) > count.get(res) || 
-              count.get(str) == count.get(res) && res.compareTo(str) > 0){
-                            res = str;
-                          }
-                     }
+                    String str = list.get(i).web + " " + list.get(j).web + " " + list.get(k).web;
+                    if(!set.contains(str)){
+                        count.put(str, count.getOrDefault(str,0)+1);
+                        set.add(str);
+                    }
+                        
+                    if(res.equals("") || count.get(str)>count.get(res) ||
+                       count.get(str)==count.get(res) && res.compareTo(str)>0){
+                        res = str;
+                    }
+                                             
+                    }
                 }
             }
         }
@@ -53,6 +51,6 @@ class Solution{
             result.add(str);
         }
         return result;
-        
-    }
+
+   }
 }
